@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -58,4 +59,41 @@ public class MockitoTest {
         verify(mockedList).clear();
     }
 
+
+    @Test
+    public void stubExampleTest(){
+        LinkedList mockedList = mock(LinkedList.class);
+        when(mockedList.get(0)).thenReturn("first");
+        System.out.println(mockedList.get(0));
+        System.out.println(mockedList.get(999)); //rerurns NULL
+    }
+
+    @Test
+    public void quantityTimesTest(){
+        LinkedList mockedList = mock(LinkedList.class);
+        mockedList.add("twice");
+        mockedList.add("twice");
+        mockedList.add("once");
+
+        verify(mockedList, times(2)).add("twice");
+        verify(mockedList, atLeastOnce()).add("once");
+    }
+
+    @Test
+    public void spyTest(){
+        List list = new LinkedList();
+        List spy = spy(list);
+        when(spy.size()).thenReturn(100);
+
+        spy.add("one");
+        spy.add("two");
+
+        System.out.println(spy.get(0));
+
+        System.out.println(spy.size());
+        System.out.println(list.size());
+
+        verify(spy).add("one");
+        verify(spy).add("two");
+    }
 }
