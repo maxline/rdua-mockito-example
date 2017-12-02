@@ -7,7 +7,9 @@ import javax.script.ScriptException;
 /**
  * @author Sergey Mikhluk.
  */
-public class CalculatorImpl {
+public class CalculatorImpl implements Calculator {
+
+    @Override
     public double calculate(String expression){
         ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("nashorn");
         expression = expression.replace("sin", "Math.sin").replace("cos", "Math.cos");
